@@ -3,83 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A modern, secure calculator with keyboard and mouse support">
+    <meta name="theme-color" content="#2d3436">
     <title>Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="calculator-container">
         <div class="calculator">
-            <div class="display">
-                <input type="text" id="display" placeholder="0" readonly>
+            <div class="display-section">
+                <div class="history" id="history"></div>
+                <div class="display">
+                    <input type="text" id="display" placeholder="0" readonly aria-label="Calculator display">
+                </div>
             </div>
             <div class="buttons">
-                <button class="btn clear" onclick="clearDisplay()">C</button>
-                <button class="btn operator" onclick="appendOperator('/')">/</button>
-                <button class="btn operator" onclick="appendOperator('*')">×</button>
-                <button class="btn operator" onclick="appendOperator('-')">−</button>
+                <!-- Row 1: Clear, /, *, - -->
+                <button class="btn clear" onclick="clearDisplay()" aria-label="Clear display">C</button>
+                <button class="btn operator" onclick="appendOperator('/')" aria-label="Divide">÷</button>
+                <button class="btn operator" onclick="appendOperator('*')" aria-label="Multiply">×</button>
+                <button class="btn operator" onclick="appendOperator('-')" aria-label="Subtract">−</button>
                 
+                <!-- Row 2: 7, 8, 9, + -->
                 <button class="btn" onclick="appendNumber('7')">7</button>
                 <button class="btn" onclick="appendNumber('8')">8</button>
                 <button class="btn" onclick="appendNumber('9')">9</button>
-                <button class="btn operator" onclick="appendOperator('+')">+</button>
+                <button class="btn operator" onclick="appendOperator('+')" aria-label="Add">+</button>
                 
+                <!-- Row 3: 4, 5, 6, Backspace -->
                 <button class="btn" onclick="appendNumber('4')">4</button>
                 <button class="btn" onclick="appendNumber('5')">5</button>
                 <button class="btn" onclick="appendNumber('6')">6</button>
-                <button class="btn operator" onclick="appendOperator('.')">,</button>
+                <button class="btn backspace" onclick="deleteLast()" aria-label="Delete last digit">⌫</button>
                 
+                <!-- Row 4: 1, 2, 3, . -->
                 <button class="btn" onclick="appendNumber('1')">1</button>
                 <button class="btn" onclick="appendNumber('2')">2</button>
                 <button class="btn" onclick="appendNumber('3')">3</button>
-                <button class="btn operator" onclick="deleteLast()">⌫</button>
+                <button class="btn operator" onclick="appendNumber('.')" aria-label="Decimal point">.</button>
                 
+                <!-- Row 5: 0 (wide), = (wide) -->
                 <button class="btn zero" onclick="appendNumber('0')">0</button>
-                <button class="btn equals" onclick="calculate()">=</button>
+                <button class="btn equals" onclick="calculate()" aria-label="Calculate">=</button>
             </div>
         </div>
     </div>
 
-    <script>
-        const display = document.getElementById('display');
-
-        function appendNumber(num) {
-            if (display.value === '0' && num !== '.') {
-                display.value = num;
-            } else {
-                display.value += num;
-            }
-        }
-
-        function appendOperator(op) {
-            if (display.value && display.value[display.value.length - 1] !== '+' 
-                && display.value[display.value.length - 1] !== '-' 
-                && display.value[display.value.length - 1] !== '*' 
-                && display.value[display.value.length - 1] !== '/' 
-                && display.value[display.value.length - 1] !== '.') {
-                display.value += op;
-            }
-        }
-
-        function calculate() {
-            try {
-                const result = eval(display.value);
-                display.value = result;
-            } catch (error) {
-                display.value = 'Error';
-            }
-        }
-
-        function clearDisplay() {
-            display.value = '0';
-        }
-
-        function deleteLast() {
-            if (display.value.length > 1) {
-                display.value = display.value.slice(0, -1);
-            } else {
-                display.value = '0';
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
